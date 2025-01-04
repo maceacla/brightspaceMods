@@ -1,4 +1,4 @@
-# Course Diary: Analog Circuit Design
+# Course Diary: Analog Integrated Circuit Design
 
 ## January 15, 2025
 Today's lecture on operational amplifiers generated good discussion. Students struggled with understanding virtual ground concept - need to develop better visualization next time. The analysis of the inverting amplifier configuration sparked interesting questions about input impedance.
