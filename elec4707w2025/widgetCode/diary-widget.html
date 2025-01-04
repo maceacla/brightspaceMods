@@ -27,7 +27,17 @@
             (async () => {
                 console.log('Widget async function starting');
                 try {
-                    const response = await fetch('https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md');
+                    const timestamp = new Date().getTime();
+                    const url = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
+                    const options = {
+                        cache: 'no-store',
+                        headers: {
+                            'Cache-Control': 'no-cache',
+                            'Pragma': 'no-cache'
+                        }
+                    };
+                    
+                    const response = await fetch(url, options);
                     console.log('MD Fetch response:', response.status);
                     
                     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
