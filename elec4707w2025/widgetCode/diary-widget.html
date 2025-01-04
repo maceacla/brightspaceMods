@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Diary Widget</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<div class="widget-root">
     <style>
-        #markdown-container {
+        .markdown-container {
             width: 100%;
             height: 400px;
             overflow-y: auto;
@@ -16,9 +12,10 @@
             font-size: 14px;
         }
     </style>
-</head>
-<body>
+
     <div id="markdown-container" class="markdown-container"></div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
     <script>
         (async () => {
             console.log('Script started execution');
@@ -39,14 +36,9 @@
                 document.getElementById('markdown-container').innerHTML = parsedHTML;
                 console.log('Content rendered to container');
             } catch (error) {
-                console.error('Error details:', {
-                    message: error.message,
-                    stack: error.stack,
-                    type: error.name
-                });
+                console.error('Error details:', error);
                 document.getElementById('markdown-container').innerHTML = '<p>Error loading content</p>';
             }
         })();
     </script>
-</body>
-</html>
+</div>
