@@ -1,55 +1,61 @@
-<div id="widget-container"></div>
+<div id="diary-widget-container" style="height: 800px; overflow: hidden;">
+    <div class="diary-widget-root">
+        <style>
+            #diary-widget-container {
+                height: 800px !important;
+                overflow: hidden !important;
+            }
+            
+            .diary-widget-root {
+                all: initial;
+                display: block;
+                width: 100%;
+                height: 800px !important;
+                max-height: 800px !important;
+                overflow: hidden !important;
+            }
+            
+            #diary-markdown-container {
+                width: 100%;
+                height: 800px !important;
+                max-height: 800px !important;
+                overflow-y: scroll !important;
+                padding: 10px;
+                border: 1px solid #ddd;
+                box-sizing: border-box;
+                background: white;
+                position: relative;
+            }
+        </style>
+        <div id="diary-markdown-container"></div>
+    </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 <script>
-    const waitForMarked = () => {
-        return new Promise((resolve, reject) => {
-            const maxAttempts = 20;
-            let attempts = 0;
-            const check = () => {
-                attempts++;
-                console.log(`Checking for marked.js (attempt ${attempts})`);
-                if (window.marked) {
-                    console.log('marked.js found');
-                    resolve();
-                } else if (attempts >= maxAttempts) {
-                    reject(new Error('Timeout waiting for marked.js'));
-                } else {
-                    setTimeout(check, 100);
-                }
-            };
-            check();
-        });
-    };
-
     (async () => {
-        const widgetContainer = document.getElementById('widget-container');
-        const timestamp = new Date().getTime();
-        const widgetUrl = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/widgetCode/diary-widget.html?t=${timestamp}`;
-
         try {
-            console.log('Loading marked.js...');
-            await waitForMarked();
-            console.log('marked.js loaded');
-
-            const response = await fetch(widgetUrl, { cache: 'no-store' });
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            // Wait for marked.js
+            while (!window.marked) {
+                await new Promise(resolve => setTimeout(resolve, 100));
             }
-            let widgetHTML = await response.text();
-            widgetContainer.innerHTML = widgetHTML;
-            console.log('diary-widget.html loaded successfully');
-
-            // Dynamically inject any script blocks
-            const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
-            let match;
-            while ((match = scriptRegex.exec(widgetHTML)) !== null) {
-                const scriptTag = document.createElement('script');
-                scriptTag.textContent = match[1];
-                document.head.appendChild(scriptTag);
-            }
+            
+            // Fetch and render markdown
+            const timestamp = new Date().getTime();
+            const mdUrl = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
+            const response = await fetch(mdUrl, { cache: 'no-store' });
+            
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const markdownText = await response.text();
+            
+            const container = document.getElementById('diary-markdown-container');
+            if (!container) throw new Error('diary-markdown-container not found');
+            container.innerHTML = marked.parse(markdownText);
+            
         } catch (error) {
             console.error('Failed to load or render content:', error);
-            widgetContainer.innerHTML = '<p>Error loading content</p>';
+            document.getElementById('diary-markdown-container').innerHTML = 
+                '<p>Error loading content: ' + error.message + '</p>';
         }
     })();
 </script>
