@@ -1,30 +1,44 @@
-<div id="diary-widget-container" style="height: 800px; overflow: hidden;">
+<div id="diary-widget-container" style="height: 800px; overflow-y: auto;">
     <div class="diary-widget-root">
         <style>
+            /* Import the Share Tech Mono font from Google Fonts */
+            @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
             #diary-widget-container {
-                height: 800px !important;
-                overflow: hidden !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
             }
-            
+
             .diary-widget-root {
-                all: initial;
-                display: block;
-                width: 100%;
-                height: 800px !important;
-                max-height: 800px !important;
-                overflow: hidden !important;
+                display: block !important;
+                width: 100% !important;
+                height: 100% !important;
+                box-sizing: border-box !important;
             }
-            
+
             #diary-markdown-container {
-                width: 100%;
-                height: 800px !important;
-                max-height: 800px !important;
-                overflow-y: scroll !important;
-                padding: 10px;
-                border: 1px solid #ddd;
-                box-sizing: border-box;
-                background: white;
-                position: relative;
+                width: 100% !important;
+                height: auto !important;
+                overflow-y: auto !important;
+                overflow-x: hidden !important;
+                padding: 10px !important;
+                border: 1px solid #ddd !important;
+                box-sizing: border-box !important;
+                /* Remove font-family from here */
+            }
+
+            #diary-markdown-container::-webkit-scrollbar {
+                width: 8px !important;
+                display: block !important;
+            }
+
+            #diary-markdown-container::-webkit-scrollbar-track {
+                background: #f1f1f1 !important;
+            }
+
+            #diary-markdown-container::-webkit-scrollbar-thumb {
+                background: #888 !important;
+                border-radius: 4px !important;
             }
         </style>
         <div id="diary-markdown-container"></div>
@@ -39,22 +53,28 @@
             while (!window.marked) {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
-            
+
             // Fetch and render markdown
             const timestamp = new Date().getTime();
             const mdUrl = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
             const response = await fetch(mdUrl, { cache: 'no-store' });
-            
+
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const markdownText = await response.text();
-            
+
             const container = document.getElementById('diary-markdown-container');
             if (!container) throw new Error('diary-markdown-container not found');
             container.innerHTML = marked.parse(markdownText);
-            
+
+            // **JavaScript to apply the font after rendering**
+            const elementsToStyle = container.querySelectorAll('p, li, blockquote, code, pre, h1, h2, h3, h4, h5, h6');
+            elementsToStyle.forEach(element => {
+                element.style.fontFamily = "'Share Tech Mono', monospace";
+            });
+
         } catch (error) {
             console.error('Failed to load or render content:', error);
-            document.getElementById('diary-markdown-container').innerHTML = 
+            document.getElementById('diary-markdown-container').innerHTML =
                 '<p>Error loading content: ' + error.message + '</p>';
         }
     })();
