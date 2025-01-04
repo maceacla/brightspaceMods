@@ -39,23 +39,3 @@ Low noise design techniques covered. Students particularly engaged with chopper 
 ## April 9, 2025
 Analog layout techniques discussion. Students struggled with matching concepts. The virtual fab tour videos helped illustrate process variations. Add more real mask examples next time.
 
-## April 16, 2025
-Filter implementation lab today. Switched-capacitor concepts were challenging for many. The discrete vs. integrated filter comparison generated good discussion about tradeoffs.
-
-## April 23, 2025
-Project progress reviews. Most teams showing good progress. Common challenges with measurement setup - need better lab equipment tutorials next term.
-
-## April 30, 2025
-Data converter architectures in depth. Pipeline vs. sigma-delta discussion was particularly engaging. Students appreciated the industry application examples.
-
-## May 7, 2025
-Analog testing methods covered. Students struggled with automated test concepts. The virtual ATE demonstration helped, but need more hands-on exercises next year.
-
-## May 14, 2025
-Final project presentations started. Impressive work on biomedical amplifiers and sensor interfaces. Document these projects for future reference.
-
-## May 21, 2025
-Project demonstrations completed. Outstanding work on power management systems. Industry guests provided valuable feedback. Consider expanding industry participation next year.
-
-## May 28, 2025
-Course wrap-up and feedback session. Students appreciated hands-on labs but want more IC design exposure. Plan to add more CAD tools next term. Overall very positive response to practical focus.
