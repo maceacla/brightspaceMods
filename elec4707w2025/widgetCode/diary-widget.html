@@ -4,73 +4,49 @@
             all: initial;
             display: block;
             width: 100%;
-            height: 100%;
+            height: 100vh;
+            overflow: hidden;
         }
-        #markdown-container.markdown-container {
-            width: 100% !important;
-            height: 400px !important;
-            max-height: 400px !important;
-            overflow-y: scroll !important;
-            padding: 10px !important;
-            border: 1px solid #ddd !important;
-            box-sizing: border-box !important;
-            display: block !important;
-            background: white !important;
-            position: relative !important;
-        }
-        #markdown-container.markdown-container p, 
-        #markdown-container.markdown-container li {
-            font-size: 14px !important;
-            margin: 0.5em 0 !important;
-            color: #333 !important;
+        #markdown-container {
+            width: 100%;
+            height: 400px;
+            max-height: 400px;
+            overflow-y: scroll;
+            padding: 10px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            background: white;
+            position: relative;
         }
     </style>
 
-    <div id="markdown-container" class="markdown-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    
+    <div id="markdown-container"></div>
     
     <script>
         console.log('Widget script tag found');
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('Widget DOM loaded');
-            if (typeof marked === 'undefined') {
-                console.error('marked library not loaded');
-                return;
+        (async () => {
+            console.log('Widget async function starting');
+            try {
+                const timestamp = new Date().getTime();
+                const url = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
+                const response = await fetch(url, {
+                    cache: 'no-store'
+                });
+                console.log('MD Fetch response:', response.status);
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const markdownText = await response.text();
+                console.log('MD Content length:', markdownText.length);
+                
+                const container = document.getElementById('markdown-container');
+                container.innerHTML = marked.parse(markdownText);
+                console.log('Content rendered');
+            } catch (error) {
+                console.error('Widget error:', error);
             }
-            
-            (async () => {
-                console.log('Widget async function starting');
-                try {
-                    const timestamp = new Date().getTime();
-                    const url = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
-                    const options = {
-                        cache: 'no-store',
-                        headers: {
-                            'Cache-Control': 'no-cache',
-                            'Pragma': 'no-cache'
-                        }
-                    };
-                    
-                    const response = await fetch(url, options);
-                    console.log('MD Fetch response:', response.status);
-                    
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    
-                    const markdownText = await response.text();
-                    console.log('MD Content length:', markdownText.length);
-                    
-                    const container = document.getElementById('markdown-container');
-                    if (!container) {
-                        console.error('Container not found');
-                        return;
-                    }
-                    
-                    container.innerHTML = marked.parse(markdownText);
-                    console.log('Content rendered');
-                } catch (error) {
-                    console.error('Widget error:', error);
-                }
-            })();
-        });
+        })();
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
 </div>
