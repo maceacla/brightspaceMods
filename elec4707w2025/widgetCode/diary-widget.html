@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Widget</title>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+
+    <style>
+        #markdown-container {
+            width: 100%;
+            height: 400px;  /* Fixed height */
+            overflow-y: auto; /* Enable vertical scrollbar if needed */
+            padding: 10px;
+            border: 1px solid #ddd; /* Optional: border to give some visual outline*/
+            box-sizing: border-box; /* To ensure that padding and border do not overflow */
+        }
+        .markdown-container p, .markdown-container li{
+           font-size: 14px; /* Set the font size to 14px */
+        }
+    </style>
+</head>
+<body>
+    <div id="markdown-container" class="markdown-container">
+      </div>
+<script>
+  (async () => {
+        const markdownContainer = document.getElementById('markdown-container');
+        const rawGitHubUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/main/elec4707w2025/content/diary.md'; // Replace with your GitHub Raw URL
+         try {
+            const response = await fetch(rawGitHubUrl);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const markdownText = await response.text();
+            const htmlContent = marked.parse(markdownText);
+             markdownContainer.innerHTML = htmlContent;
+           }
+        catch(error){
+              console.error('Failed to fetch or render the markdown:', error);
+               markdownContainer.innerHTML = "<p> Failed to load the markdown due to a network error. Check the console for details. </p>";
+         }
+     })();
+
+    </script>
+</body>
+</html>
