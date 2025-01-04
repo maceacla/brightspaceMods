@@ -2,13 +2,14 @@
 <script>
     (async () => {
         const widgetContainer = document.getElementById('widget-container');
-        const widgetUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/diary-widget.html';
+        const widgetUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/widgetCode/diary-widget.html';
         
         try {
             const response = await fetch(widgetUrl);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const widgetHTML = await response.text();
             widgetContainer.innerHTML = widgetHTML;
+            console.log('diary-widget.html loaded successfully'); // Added success message
         } catch (error) {
             console.error('Failed to fetch widget:', error);
             widgetContainer.innerHTML = '<p>Error loading widget</p>';
