@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Diary Widget</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+    <title>Title Card Widget Test</title>
     <style>
-        #markdown-container {
-            width: 100%;
-            height: 400px;
-            overflow-y: auto;
-            padding: 10px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-        }
-        .markdown-container p, .markdown-container li {
-            font-size: 14px;
+        .widget-test-container {
+            width: 1000px;
+            margin: 20px auto;
+            border: 1px dashed #ccc;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <div id="markdown-container" class="markdown-container"></div>
+    <div class="widget-test-container">
+        <!-- Widget content will be loaded here -->
+    </div>
+
     <script>
         (async () => {
             try {
-                const response = await fetch('https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md');
+                const response = await fetch('elec4707w2025/widgetCode/title-card-widget.html');
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const markdownText = await response.text();
-                document.getElementById('markdown-container').innerHTML = marked.parse(markdownText);
+                const widgetHTML = await response.text();
+                document.querySelector('.widget-test-container').innerHTML = widgetHTML;
             } catch (error) {
-                console.error('Failed to fetch:', error);
-                document.getElementById('markdown-container').innerHTML = '<p>Error loading content</p>';
+                console.error('Failed to load widget:', error);
+                document.querySelector('.widget-test-container').innerHTML = '<p>Error loading widget</p>';
             }
         })();
     </script>

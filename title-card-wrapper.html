@@ -3,10 +3,13 @@
 <script>
   (async () => {
     const widgetContainer = document.getElementById('widget-container');
-    const rawGitHubUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/widgetCode/title-card-widget.html'; // Replace with your raw GitHub URL
+    const timestamp = new Date().getTime(); // Add timestamp
+    const rawGitHubUrl = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/widgetCode/title-card-widget.html?t=${timestamp}`; // Add timestamp parameter
 
     try {
-      const response = await fetch(rawGitHubUrl);
+      const response = await fetch(rawGitHubUrl, {
+        cache: 'no-store' // Force no caching
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -14,7 +17,7 @@
       widgetContainer.innerHTML = widgetHTML;
     } catch (error) {
       console.error('Failed to fetch or render the widget:', error);
-        widgetContainer.innerHTML = "<p> Failed to load the widget due to a network error. Check the console for details. </p>";
+      widgetContainer.innerHTML = "<p>Failed to load the widget due to a network error. Check the console for details.</p>";
     }
   })();
 </script>

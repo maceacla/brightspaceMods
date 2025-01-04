@@ -10,9 +10,9 @@
             </div>
         <div class="widget-links">
             <ul>
-                <li><a href="your-course-outline-link-here"><span class="link-icon">📎</span> Course Outline and Information</a></li>
+                <li><a href="https://carleton.ca/doe/ug-2025-winter-course-outlines/" target="_blank" rel="noopener"><span class="link-icon">📎</span> Course Outline and Information</a></li>
                 <li><a href="your-course-schedule-link-here"><span class="link-icon">📅</span> Course Schedule</a></li>
-                 <li><a href="your-suggested-books-link-here"><span class="link-icon">📚</span> Suggested Books</a></li>
+                 <li><a href="https://elec4707w2024.notion.site/99cb165b831e4bdeab0816218dda748b?v=952cc475d4b84677805ceac77fc8428d" target="_blank" rel="noopener"><span class="link-icon">📚</span> Suggested Books</a></li>
                 <li><a href="your-assignments-link-here"><span class="link-icon">📌</span> Assignments</a></li>
                  <li><a href="your-labs-link-here"><span class="link-icon">📍</span> Labs</a></li>
                   <li><a href="your-contact-link-here"><span class="link-icon">📞</span> Contact & Office Hours</a></li>
@@ -35,18 +35,18 @@
       padding: 15px;
       border-bottom: 1px solid #ddd; /* Adds a border at the bottom for visual separation */
        box-sizing: border-box; /* Make sure padding doesn't affect width */
-
+       gap: 30px; /* Add space between flex items */
     }
     .widget-content-left{
        padding: 10px;
-       max-width: 35%;    /* Increased from 30% */
-       flex: 0.4;
+       max-width: 45%;    /* Increase from 42% */
+       flex: 0.45;        /* Increase from 0.4 */
        box-sizing: border-box;
        overflow: hidden;  /* Prevent overflow */
     }
     .widget-content-right {
         padding: 10px;
-        flex: 0.6;
+        flex: 0.55;        /* Decrease from 0.6 */
         box-sizing: border-box;
     }
     .widget-image {
@@ -55,6 +55,8 @@
         display: block;
         margin-right: 15px; /* Space between image and text */
          box-sizing: border-box;
+         transform: scale(1.2); /* Scale up by 20% */
+         transform-origin: left center; /* Scale from left side */
     }
 
     .widget-quote {
@@ -64,7 +66,7 @@
           padding-left: 15px; /* Space between line and text */
            box-sizing: border-box;
            font-family: 'Lora', serif;
-           font-size: 1.2rem;
+           font-size: 1.0rem;
            line-height: 1.6;
            max-width: 80%;
            color: #2c3e50;
@@ -72,6 +74,7 @@
      .widget-links {
          box-sizing: border-box;
          font-family: 'Open Sans', sans-serif;
+         margin-top: 1.5rem;  /* Add space above links */
      }
     .widget-links ul {
         list-style: none;
@@ -89,7 +92,7 @@
       text-decoration: none;
       color: #0071c5;
        box-sizing: border-box;
-       font-size: 1.1rem;
+       font-size: 1.0rem;
        font-weight: 600;
     }
     .widget-links li a:hover{
