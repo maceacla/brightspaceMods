@@ -39,9 +39,10 @@
     }
     .widget-content-left{
        padding: 10px;
-       max-width: 30%;
+       max-width: 35%;    /* Increased from 30% */
        flex: 0.4;
        box-sizing: border-box;
+       overflow: hidden;  /* Prevent overflow */
     }
     .widget-content-right {
         padding: 10px;
@@ -49,7 +50,7 @@
         box-sizing: border-box;
     }
     .widget-image {
-        max-width: 120%;
+        width: 100%;      /* Changed from max-width: 120% */
         height: auto;
         display: block;
         margin-right: 15px; /* Space between image and text */
