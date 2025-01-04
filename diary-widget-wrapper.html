@@ -1,19 +1,17 @@
 <div id="widget-container"></div>
 <script>
     (async () => {
-    const widgetContainer = document.getElementById('widget-container');
-    const rawGitHubUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/widgetCode/diary-widget.html';  //Replace with the raw URL for your widget.html in your repo
-
-    try {
-      const response = await fetch(rawGitHubUrl);
-      if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const widgetHTML = await response.text();
-      widgetContainer.innerHTML = widgetHTML;
-     } catch (error) {
-          console.error('Failed to fetch or render the widget:', error);
-           widgetContainer.innerHTML = "<p> Failed to load the widget due to a network error. Check the console for details. </p>";
-     }
+        const widgetContainer = document.getElementById('widget-container');
+        const widgetUrl = 'https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/diary-widget.html';
+        
+        try {
+            const response = await fetch(widgetUrl);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const widgetHTML = await response.text();
+            widgetContainer.innerHTML = widgetHTML;
+        } catch (error) {
+            console.error('Failed to fetch widget:', error);
+            widgetContainer.innerHTML = '<p>Error loading widget</p>';
+        }
     })();
 </script>
