@@ -1,9 +1,6 @@
 <div id="diary-widget-container" style="height: 800px; overflow-y: auto;">
     <div class="diary-widget-root">
         <style>
-            /* Import the Share Tech Mono font from Google Fonts */
-            @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
             #diary-widget-container {
                 width: 100% !important;
                 box-sizing: border-box !important;
@@ -24,7 +21,7 @@
                 padding: 10px !important;
                 border: 1px solid #ddd !important;
                 box-sizing: border-box !important;
-                /* Remove font-family from here */
+                /* Remove font-family from CSS */
             }
 
             #diary-markdown-container::-webkit-scrollbar {
@@ -54,6 +51,12 @@
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
 
+            // **Dynamically load the Quantico font**
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'https://fonts.googleapis.com/css2?family=Quantico:wght@400;700&display=swap';
+            document.head.appendChild(link);
+
             // Fetch and render markdown
             const timestamp = new Date().getTime();
             const mdUrl = `https://raw.githubusercontent.com/maceacla/brightspaceMods/refs/heads/main/elec4707w2025/content/diary.md?t=${timestamp}`;
@@ -66,10 +69,10 @@
             if (!container) throw new Error('diary-markdown-container not found');
             container.innerHTML = marked.parse(markdownText);
 
-            // **JavaScript to apply the font after rendering**
+            // JavaScript to apply the Quantico font after rendering (ensure font is likely loaded)
             const elementsToStyle = container.querySelectorAll('p, li, blockquote, code, pre, h1, h2, h3, h4, h5, h6');
             elementsToStyle.forEach(element => {
-                element.style.fontFamily = "'Share Tech Mono', monospace";
+                element.style.fontFamily = "'Quantico'"; // Removed ", serif" for simplicity in JS
             });
 
         } catch (error) {
